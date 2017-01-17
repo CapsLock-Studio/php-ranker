@@ -9,8 +9,8 @@ abstract class AbstractViolation
 
     public function getRemediationPoints()
     {
-        return $this->remediation;
+        return $this->remediation ?: 0;
     }
 
-    abstract public function addViolation(array $nodes);
+    abstract public function add(array $nodes);
 }

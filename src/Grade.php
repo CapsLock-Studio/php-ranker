@@ -24,10 +24,18 @@ class Grade
             $max   = $rating[1];
             $point = $rating[2];
 
-            if ($points >= $min && $points < $max) {
+            if ($points > $min && $points <= $max) {
                 $this->rank  = $rank;
                 $this->point = $point;
             }
+        }
+
+        if (!$this->rank) {
+            $rating      = reset($this->ratings);
+            $keys        = array_keys($this->ratings);
+            $key         = reset($keys);
+            $this->rank  = $key;
+            $this->point = $rating[2];
         }
 
         $this->points = $points;

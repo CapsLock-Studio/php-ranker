@@ -48,12 +48,16 @@ class Violation extends AbstractViolation
         "UnusedPrivateMethod"                 => 200000,
     ];
 
-    public function addViolation(array $nodes)
+    public function add(array $nodes)
     {
-        $type = $nodes["type"];
-        $name = $this->getRule($type);
+        isset($nodes["rule"]) ?: $nodes["rule"] = "";
 
-        $this->remediation = $this->checks[$name] ?: 0;
+        $rule = $nodes["rule"];
+        $name = $this->getRule($rule);
+
+        isset($this->checks[$name]) ?: $this->checks[$name] = 0;
+
+        $this->remediation = $this->checks[$name];
 
         return $this;
     }

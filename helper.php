@@ -1,13 +1,13 @@
 <?php
 
-if (!function_exists('glob_recursive'))
+if (!function_exists("glob_recursive"))
 {
     function glob_recursive($pattern, $flags = 0)
     {
         $files = glob($pattern, $flags);
 
-        foreach (glob(dirname($pattern).'/*', GLOB_ONLYDIR|GLOB_NOSORT) as $dir) {
-            $files = array_merge($files, glob_recursive($dir.'/'.basename($pattern), $flags));
+        foreach (glob(dirname($pattern)."/*", GLOB_ONLYDIR|GLOB_NOSORT) as $dir) {
+            $files = array_merge($files, glob_recursive($dir."/".basename($pattern), $flags));
         }
 
         return $files;
@@ -20,7 +20,7 @@ if (!function_exists("is_excluded"))
     {
         foreach ($excludes as $exclude) {
             $exclude = realpath($exclude);
-            if (is_dir($exclude) && strpos($path, $exclude) === 0) {
+            if (strpos($path, $exclude) === 0) {
                 return true;
             }
         }
@@ -47,10 +47,9 @@ if (!function_exists("loc"))
 {
     function loc($file)
     {
-        $file  = file_get_contents($file);
-        $file  = trim($file);
-        $slice = explode("\n", $file);
+        $file = file_get_contents($file);
+        $file = trim($file);
 
-        return count($slice);
+        return substr_count($file, "\n");
     }
 }

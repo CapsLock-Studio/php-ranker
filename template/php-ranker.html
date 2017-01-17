@@ -25,32 +25,32 @@
         height: 45px;
       }
 
-      td {
+      td, .force-vertical {
         vertical-align: middle !important;
       }
 
       .rating-4 {
-        background: transparent url('<?php echo "data:image/svg+xml;utf8,".trim(file_get_contents(__DIR__."/rating-a.svg")); ?>') center center no-repeat;
+        background: transparent url('<?php echo "data:image/svg+xml;utf8,".str_replace("#", "%23", trim(file_get_contents(__DIR__."/rating-a.svg"))); ?>') center center no-repeat;
         background-size: 45px 45px;
       }
 
       .rating-3 {
-        background: transparent url('<?php echo "data:image/svg+xml;utf8,".trim(file_get_contents(__DIR__."/rating-b.svg")); ?>') center center no-repeat;
+        background: transparent url('<?php echo "data:image/svg+xml;utf8,".str_replace("#", "%23", trim(file_get_contents(__DIR__."/rating-b.svg"))); ?>') center center no-repeat;
         background-size: 45px 45px;
       }
 
       .rating-2 {
-        background: transparent url('<?php echo "data:image/svg+xml;utf8,".trim(file_get_contents(__DIR__."/rating-c.svg")); ?>') center center no-repeat;
+        background: transparent url('<?php echo "data:image/svg+xml;utf8,".str_replace("#", "%23", trim(file_get_contents(__DIR__."/rating-c.svg"))); ?>') center center no-repeat;
         background-size: 45px 45px;
       }
 
       .rating-1 {
-        background: transparent url('<?php echo "data:image/svg+xml;utf8,".trim(file_get_contents(__DIR__."/rating-d.svg")); ?>') center center no-repeat;
+        background: transparent url('<?php echo "data:image/svg+xml;utf8,".str_replace("#", "%23", trim(file_get_contents(__DIR__."/rating-d.svg"))); ?>') center center no-repeat;
         background-size: 45px 45px;
       }
 
       .rating-0 {
-        background: transparent url('<?php echo "data:image/svg+xml;utf8,".trim(file_get_contents(__DIR__."/rating-f.svg")); ?>') center center no-repeat;
+        background: transparent url('<?php echo "data:image/svg+xml;utf8,".str_replace("#", "%23", trim(file_get_contents(__DIR__."/rating-f.svg"))); ?>') center center no-repeat;
         background-size: 45px 45px;
       }
     </style>
@@ -129,6 +129,30 @@
                   <div id="chart"></div>
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">重點檔案</h3>
+            </div>
+            <div class="panel-body">
+              <ul class="media-list">
+                <?php $count = 0; ?>
+                <?php arsort($reportFiles) ?>
+                <?php foreach (array_reverse($reportFiles) as $reportFile => $point): ?>
+                  <?php if ($point < 3 && $count < 5): ?>
+                    <li class="media">
+                      <div class="media-left">
+                        <div class="rating rating-<?php echo $point; ?>"></div>
+                      </div>
+                      <div class="media-body force-vertical">
+                        <?php echo $reportFile ?>
+                      </div>
+                    </li>
+                    <?php $count ++ ?>
+                  <?php endif; ?>
+                <?php endforeach; ?>
+              </ul>
             </div>
           </div>
         </div>
